@@ -17,7 +17,7 @@ router.route('/signIn')
                     if (err) { 
                         res.status(500).send(err);
                     } else {
-                      res.send(user);
+                      res.status(200).send(user);
                     }
                 });
             }
