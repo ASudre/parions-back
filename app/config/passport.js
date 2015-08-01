@@ -33,7 +33,7 @@ module.exports = function(passport) {
                     return done(err);
                 }
                 // If user does not exist, is disabled, or password not valid.
-                if (!user || !user.enabled || !user.validPassword(password)) {
+                if (!user || !user.validPassword(password)) {
                     return done(null, false);
                 }
                 return done(null, user);
