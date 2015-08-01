@@ -5,7 +5,7 @@
 	"mongoHost":"localhost",
 	"dbName":"Parions-dev",
 	"cors": {
-		"origin": "http://dev01.decasoft.fr",
+		"origin": "http://localhost:9000",
 		"allowCredentials": true,
 		"allowHeaders": "Origin, X-Requested-With, Content-Type, Accept,Cache-Control",
 		"allowMethods":"GET,PUT,POST,DELETE",
