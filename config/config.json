@@ -1,0 +1,7 @@
+{
+	"version":"1.0.0",
+	"webPort": 4444,
+	"mongoPort":33554,
+	"mongoHost":"localhost",
+	"dbName":"Parions-dev"
+}
