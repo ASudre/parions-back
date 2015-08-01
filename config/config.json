@@ -3,5 +3,12 @@
 	"webPort": 4444,
 	"mongoPort":33554,
 	"mongoHost":"localhost",
-	"dbName":"Parions-dev"
+	"dbName":"Parions-dev",
+	"cors": {
+		"origin": "http://dev01.decasoft.fr",
+		"allowCredentials": true,
+		"allowHeaders": "Origin, X-Requested-With, Content-Type, Accept,Cache-Control",
+		"allowMethods":"GET,PUT,POST,DELETE",
+		"cacheControl":"no-cache"
+	}
 }
