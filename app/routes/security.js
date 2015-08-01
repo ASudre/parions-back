@@ -24,4 +24,12 @@ router.route('/signIn')
         })(req,res);
     });
 
+router.route('/getConnectedUser').get(function (req,res){
+    if(req.isAuthenticated()){
+        res.send(req.user);
+    } else {
+        res.send();
+    }
+});
+
 module.exports = router;
