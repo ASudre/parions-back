@@ -15,7 +15,6 @@ module.exports = function(passport) {
         User.findOne({
             'login': login
         }, function(err, user) {
-            user = user.toJSON();
             done(err, user);
         });
     });
@@ -37,7 +36,6 @@ module.exports = function(passport) {
                 if (!user || !user.enabled || !user.validPassword(password)) {
                     return done(null, false);
                 }
-
                 return done(null, user);
             });
         }));
