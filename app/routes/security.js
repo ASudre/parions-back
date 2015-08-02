@@ -7,28 +7,27 @@ passport = require('passport');
 
 router.route('/signIn')
     .post(function (req, res) {
-        passport.authenticate('local-login', function(err, user) {
+        passport.authenticate('local', function(err, user) {
+        if (err) { 
+            res.status(500).send(err);
+        }
+        if (!user) { 
+            res.status(401).send(err);
+        }
+        req.login(user, function(err) {
             if (err) { 
-                res.status(500).send(err);
-            } else if (!user) { 
-                res.status(401).send();
-            } else {
-                req.login(user, function(err) {
-                    if (err) { 
-                        res.status(500).send(err);
-                    } else {
-                      res.status(200).send(user);
-                    }
-                });
+                res.status(401).send(err);
             }
-        })(req,res);
-    });
+            res.status(200).send(user);
+        });
+    })(req, res);
+});
 
 router.route('/getConnectedUser').get(function (req,res){
     if(req.isAuthenticated()){
-        res.send(req.user);
+        res.status(200).send(req.user);
     } else {
-        res.send();
+        res.status(200).send();
     }
 });
 

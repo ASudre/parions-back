@@ -3,14 +3,15 @@
 
 // Dependencies
 var express = require('express'),
-	passport = require('passport'),
 	morgan = require('morgan'),
 	bodyParser = require('body-parser'),
 	expressSession = require('express-session'),
-	cookieParser = require('cookie-parser'),
+	passport = require('passport'),
 	app = express();
 
 var generalConfig = require('./config/config.json');
+require('./app/config/passport')(passport);
+
 
 app.set('generalConfig',generalConfig);
 app.set('port', process.env.WEB_PORT || generalConfig.webPort);
@@ -18,8 +19,6 @@ app.set('mongoPort', process.env.MONGO_PORT || generalConfig.mongoPort);
 app.set('mongoHost', process.env.MONGO_HOST || generalConfig.mongoHost);
 app.set('dbName', process.env.DB_NAME || generalConfig.dbName);
 
-// Mongo schemas
-require('./app/config/passport')(passport);
 
 app.use(function(req, res, next) {
 	req.config = generalConfig;
@@ -32,15 +31,15 @@ app.use(function(req, res, next) {
 });
 
 app.use(morgan('dev'));
-app.use(cookieParser());
 app.use(bodyParser.json({limit:'2mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSession({
-	resave : false,
-	expire:false,
 	name:'cookieUser',
-	saveUninitialized : true,
-    secret: ' Y3u2m142raiiq2KdXJ2AEpX6WWwgBALv'
+	secret:'parions',
+	expire:false,
+	resave:false,
+	maxAge:3600000,
+	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());

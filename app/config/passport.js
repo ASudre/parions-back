@@ -19,24 +19,28 @@ module.exports = function(passport) {
         });
     });
 
-    passport.use('local-login', new LocalStrategy({
+    passport.use(new LocalStrategy({
             usernameField: 'login',
             passwordField: 'password',
-            passReqToCallback: true
         },
-        function(req, login, password, done) {
+        function(login, password, done) {
             User.findOne({
-                'login': login
-            }, function(err, user) {
-                // If there is an error, return the error.
-                if (err) {
-                    return done(err);
-                }
-                // If user does not exist, is disabled, or password not valid.
-                if (!user || !user.validPassword(password)) {
-                    return done(null, false);
-                }
-                return done(null, user);
+                login: login
+            } , function (err, user) {
+            if (err) { 
+                done(err); 
+            }
+            if (!user) {
+                done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.validPassword(password)) {
+                done(null, false, { message: 'Incorrect password.' });
+            }
+              done(null, user);
             });
-        }));
+        }
+    ));
+
 };
+
+
