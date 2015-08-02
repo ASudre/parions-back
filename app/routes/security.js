@@ -17,8 +17,9 @@ router.route('/signIn')
         req.login(user, function(err) {
             if (err) { 
                 res.status(401).send(err);
+            } else {
+                res.status(200).send(user);
             }
-            res.status(200).send(user);
         });
     })(req, res);
 });
