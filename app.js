@@ -46,6 +46,7 @@ app.use(passport.session());
 
 // Routes definition
 app.use('/security', require('./app/routes/security'));
+app.use('/matchs', require('./app/routes/matchs'));
 
 // Export
 module.exports = app;
