@@ -5,6 +5,11 @@ var express = require('express'),
 router = express.Router(),
 passport = require('passport');
 
+/*
+*****************************
+    Routes
+*****************************
+*/
 router.route('/signIn')
     .post(function (req, res) {
         passport.authenticate('local', function(err, user) {
