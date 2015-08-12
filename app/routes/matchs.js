@@ -6,6 +6,31 @@ var express = require('express'),
     router = express.Router();
 
 
+
+/*
+*****************************
+    Routes
+*****************************
+*/
+router.route('/mises')
+    .get(function (req, res) {
+        Match.find({},function(err, result){
+
+            if(err){
+                res.status(500).send();
+            }
+
+            // On effectue les traitements des mises
+            var mises = traiterMises(result);
+
+            // Retour http
+            res.status(mises.status).send(mises.retour);
+
+        }).sort({date: 1});
+});
+
+
+
 /*
 *****************************
     Méthodes
@@ -109,27 +134,5 @@ function traiterMises(result){
     return {status:200,retour:{matchs: retourMatchs,sommeMisesUtilisateur: sommeMisesUtilisateur}};
 }
 
-
-/*
-*****************************
-    Routes
-*****************************
-*/
-router.route('/mises')
-    .get(function (req, res) {
-        Match.find({},function(err, result){
-
-            if(err){
-                res.status(500).send();
-            }
-
-            // On effectue les traitements des mises
-            var mises = traiterMises(result);
-
-            // Retour http
-            res.status(mises.status).send(mises.retour);
-
-        }).sort({date: 1});
-});
 
 module.exports = router;
